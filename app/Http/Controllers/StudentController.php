@@ -15,6 +15,7 @@ class StudentController extends Controller
 
     public function store(StudentRequest $req)
     {
+        dd(calculate_cgpa(40));
         // //update function dummy test for given input also
         // Student::where('name', $req['name'])->update(['email' => $req['email']]);
         // //deleting data
@@ -35,6 +36,8 @@ class StudentController extends Controller
         $student->save();
         //getting data
         $student=student::all();
+        //force delete
+        student::where('name', $req['name'])->forceDelete();
         //update function dummy test for given input also
         Student::where('name', $req['name'])->update(['email' => $req['email'],'Photo'=>$final_name]);
         return view('home', compact('student'))->with('success', 'data is sucessfully added');
