@@ -41,8 +41,15 @@
                         Add Student
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('store') }}" method="post">
+                        <form action="{{ route('store') }}" method="post" enctype="multipart/form-data">
                             @csrf
+                            <div class="mb-3">
+                                <label for="" class="form-label">Student Photo</label>
+                                <input type="file" name="photo">
+                                @error('photo')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Student Name</label>
                                 <input type="text" class="form-control" name="name" value="{{ old('name') }}">
@@ -75,6 +82,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">id</th>
+                                    <th scope="col">photo</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Handle</th>
@@ -85,6 +93,9 @@
                                 @foreach($student as $as)
                                 <tr>
                                     <th scope="row">{{$as->id}}</th>
+                                    <td>
+                                        <img src="{{ asset('uploads/'.$as->Photo) }}" alt="" style="width:200px;">
+                                    </td>
                                     <td>{{$as->name}}</td>
                                     <td>{{$as->email}}</td>
 
